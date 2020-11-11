@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/first_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/layout_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:background="#00FFFFFF"
+            android:letterSpacing="0.15"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="FIRST NAME"
+
+            android:textColor="#396097"
+            android:textColorHint="#396097"
+            android:textScaleX="1"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="#00FFFFFF"
+
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="Enter your first name"
+            android:inputType="text"
+            android:paddingLeft="20dp"
+
+            android:paddingBottom="5dp"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>
