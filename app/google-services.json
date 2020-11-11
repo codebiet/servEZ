@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "556669440656",
+    "firebase_url": "https://servez-f930b.firebaseio.com",
+    "project_id": "servez-f930b",
+    "storage_bucket": "servez-f930b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556669440656:android:6ca512d75d2653db45be15",
+        "android_client_info": {
+          "package_name": "com.example.services"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556669440656-v2m1kl55rgdgsaeor6o925es3p1m8ggo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAxv5rTGiyjAhqaKLC2lMzJP5ACycsfyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556669440656-v2m1kl55rgdgsaeor6o925es3p1m8ggo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
