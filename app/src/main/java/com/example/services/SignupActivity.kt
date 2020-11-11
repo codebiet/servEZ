@@ -2,7 +2,9 @@ package com.example.services
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -13,7 +15,10 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginLeft
 import kotlinx.android.synthetic.main.activity_main.textView6
 import kotlinx.android.synthetic.main.signup.*
 
@@ -29,6 +34,7 @@ class SignupActivity : AppCompatActivity() {
             "Enter your address",
             "Set your password")
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup)
@@ -59,7 +65,14 @@ class SignupActivity : AppCompatActivity() {
                 val itemIdAtPos = adapterView.getItemIdAtPosition(position)
 
         }
-
+        val signup_button : Button = Button(this)
+        signup_button.text = "SignUp"
+        signup_button.letterSpacing=0.5F
+        signup_button.setBackgroundColor(Color.parseColor("#233B5D"))
+        listview.addFooterView(signup_button)
+        signup_button.setTextColor(Color.parseColor("#FFFFFF"))
+        signup_button.setOnClickListener {
+        }
 
     }
 
