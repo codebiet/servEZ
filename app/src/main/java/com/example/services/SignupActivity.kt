@@ -12,6 +12,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -59,10 +60,13 @@ class SignupActivity : AppCompatActivity() {
         val myListAdaptor = MyListAdaptor(this,tile,description)
         listview.adapter = myListAdaptor
 
+        Log.d("Logs","$listview")
+
         listview.setOnItemClickListener() {
             adapterView, view, position,id->
                 val itemAtPos = adapterView.getItemAtPosition(position)
                 val itemIdAtPos = adapterView.getItemIdAtPosition(position)
+                Log.d("Logs","$itemIdAtPos,$itemAtPos")
 
         }
         val signup_button : Button = Button(this)
@@ -72,10 +76,10 @@ class SignupActivity : AppCompatActivity() {
         listview.addFooterView(signup_button)
         signup_button.setTextColor(Color.parseColor("#FFFFFF"))
         signup_button.setOnClickListener {
+            Log.d("Logs","registered ${signup_button.id}")
         }
 
     }
-
 
 
 }
