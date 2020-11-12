@@ -15,71 +15,31 @@ import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.core.view.marginLeft
 import kotlinx.android.synthetic.main.activity_main.textView6
+import kotlinx.android.synthetic.main.list_item.view.*
 import kotlinx.android.synthetic.main.signup.*
 
 class SignupActivity : AppCompatActivity() {
-
-    val tile = arrayOf<String>("First name ", "Last Name", "Gender","Email", "Phone", "City", "Address" , "Password")
-    val description = arrayOf<String>("Enter your first Name" ,
-            "Enter your last Name",
-            "Enter your Gender",
-            "Enter your email address",
-            "Enter your phone number",
-            "Enter your city",
-            "Enter your address",
-            "Set your password")
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup)
-        val string: SpannableString = SpannableString("Already have an account? Log In") ;
 
-        val intent: Intent = Intent(this, MainActivity::class.java)
-        val click : ClickableSpan = object : ClickableSpan() {
-            override fun onClick(view : View) {
-                startActivity(intent)
-            }
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText= false
-
-            }
-        }
-        string.setSpan(StyleSpan(Typeface.BOLD), 25, 31, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        string.setSpan(click, 25, 31, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView6.text = string;
-        textView6.setMovementMethod(LinkMovementMethod.getInstance()) ;
-
-        val myListAdaptor = MyListAdaptor(this,tile,description)
-        listview.adapter = myListAdaptor
-
-        Log.d("Logs","$listview")
-
-        listview.setOnItemClickListener() {
-            adapterView, view, position,id->
-                val itemAtPos = adapterView.getItemAtPosition(position)
-                val itemIdAtPos = adapterView.getItemIdAtPosition(position)
-                Log.d("Logs","$itemIdAtPos,$itemAtPos")
-
-        }
-        val signup_button : Button = Button(this)
-        signup_button.text = "SignUp"
-        signup_button.letterSpacing=0.5F
-        signup_button.setBackgroundColor(Color.parseColor("#233B5D"))
-        listview.addFooterView(signup_button)
-        signup_button.setTextColor(Color.parseColor("#FFFFFF"))
-        signup_button.setOnClickListener {
-            Log.d("Logs","registered ${signup_button.id}")
+        val signInText:TextView = findViewById(R.id.signin_navigator)
+        signInText.setOnClickListener{
+            val intent = Intent(this,MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
     }
-
-
 }
