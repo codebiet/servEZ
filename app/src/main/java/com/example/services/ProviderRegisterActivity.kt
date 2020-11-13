@@ -1,19 +1,30 @@
 package com.example.services
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
+import android.widget.*
 import androidx.core.view.get
+import com.example.services.models.Worker
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_provider_register.*
 
 class ProviderRegisterActivity : AppCompatActivity() {
+
+    lateinit var workerUID:String
+    lateinit var serviceType:String
+    lateinit var experience:String
+    lateinit var description:Editable
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_provider_register)
+
+        workerUID = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
         val workSpinner:Spinner = findViewById(R.id.spinner_work_selection)
         val adaptor: ArrayAdapter<String> = ArrayAdapter(this,R.layout.spinner_item,resources.getStringArray(R.array.works))
@@ -22,6 +33,7 @@ class ProviderRegisterActivity : AppCompatActivity() {
 
         workSpinner.onItemSelectedListener =  object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                serviceType = parent?.selectedItem.toString()
                 changePhoto(parent?.selectedItem.toString())
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -36,6 +48,7 @@ class ProviderRegisterActivity : AppCompatActivity() {
 
         experienceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                experience = parent?.selectedItem.toString()
                 Log.d("Logs",parent?.selectedItem.toString())
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -43,6 +56,30 @@ class ProviderRegisterActivity : AppCompatActivity() {
             }
         }
 
+        button_register.setOnClickListener{
+            description = findViewById<EditText>(R.id.edittext_description).text
+            uploadWorker()
+        }
+    }
+
+    private fun uploadWorker(){
+        val uid = FirebaseAuth.getInstance().uid
+        if(uid==null)return
+
+        val ref = FirebaseDatabase.getInstance().getReference("/workers/$serviceType/$uid")
+        val worker = Worker(uid.toString(),serviceType,experience,description.toString(),"false",0,0,3.toFloat())
+        ref.setValue(worker)
+                .addOnSuccessListener {
+                    Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()
+                    val userRef = FirebaseDatabase.getInstance().getReference("/users/$uid")
+                    userRef.child("providesService").setValue("true")
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                }
+                .addOnFailureListener{
+                Toast.makeText(this,"Failed to Register: ${it.message}",Toast.LENGTH_SHORT).show()
+                Log.d("Logs","Failed: ${it.message}")
+             }
     }
 
     private fun changePhoto(name:String){
