@@ -40,6 +40,11 @@ class SignupActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
+        findViewById<Button>(R.id.button_to).setOnClickListener{
+            val intent = Intent(this,ProviderRegisterActivity::class.java)
+            startActivity(intent)
+        }
+
         rg_gender = findViewById(R.id.radio_gender)
         rb_female = findViewById(R.id.radioFemale)
         rb_male = findViewById(R.id.radioMale)

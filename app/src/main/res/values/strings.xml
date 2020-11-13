@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">ServEZ</string>
+    <string-array name="works">
+        <item>Mechanic</item>
+        <item>Carpenter</item>
+        <item>Plumber</item>
+        <item>Bricklayer</item>
+        <item>Electrician</item>
+        <item>Painter</item>
+    </string-array>
+
+    <string-array name="experience">
+        <item>Beginner</item>
+        <item>Specialist</item>
+        <item>Expert</item>
+    </string-array>
 </resources>
