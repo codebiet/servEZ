@@ -44,16 +44,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-//        intent = Intent(this, MainActivity::class.java )
-
-
-
         bottom_navigaion_view.setOnNavigationItemSelectedListener(mOnBottomNavigationListener)
         bottom_navigaion_view.selectedItemId = R.id.action_home
-
     }
-
 
 
     private fun openFragment(fragment : Fragment) {
