@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         val string:SpannableString = SpannableString("Don't have an account? Sign Up") ;
 
-        val intent:Intent = Intent(this, SignupActivity::class.java)
+        val intent = Intent(this, SignupActivity::class.java)
         val click : ClickableSpan = object :ClickableSpan() {
             override fun onClick(view : View) {
                 startActivity(intent)
@@ -47,6 +46,8 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+
         string.setSpan(StyleSpan(BOLD), 23, 30,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         string.setSpan(click, 23, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView6.text = string;
