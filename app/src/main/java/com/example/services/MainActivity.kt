@@ -27,7 +27,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        if(FirebaseAuth.getInstance().currentUser?.uid != null) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
         val buttonLogin:Button = findViewById(R.id.button_login)
         buttonLogin.setOnClickListener{
             performLogin()
