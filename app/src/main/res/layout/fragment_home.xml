@@ -54,7 +54,7 @@
         android:id="@+id/welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello! Mr. FirstName"
+        android:text="Hello!"
         android:textColor="#233B5D"
         android:textSize="30sp"
         android:textStyle="bold"
