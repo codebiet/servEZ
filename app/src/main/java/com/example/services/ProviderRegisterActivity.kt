@@ -7,7 +7,8 @@ import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.core.view.get
+import com.example.services.Home_fragment.Companion.currentUser
+import com.example.services.models.User
 import com.example.services.models.Worker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -49,7 +50,6 @@ class ProviderRegisterActivity : AppCompatActivity() {
         experienceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 experience = parent?.selectedItem.toString()
-                Log.d("Logs",parent?.selectedItem.toString())
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -65,6 +65,15 @@ class ProviderRegisterActivity : AppCompatActivity() {
     private fun uploadWorker(){
         val uid = FirebaseAuth.getInstance().uid
         if(uid==null)return
+
+//        Log.d("Logs","Provider message ${currentUser!!.providesService}")
+//
+//        if(currentUser!!.providesService=="true"){
+//            Toast.makeText(this,"you are already Registered",Toast.LENGTH_SHORT).show()
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//            return
+//        }
 
         val ref = FirebaseDatabase.getInstance().getReference("/workers/$serviceType/$uid")
         val worker = Worker(uid.toString(),serviceType,experience,description.toString(),"false",0,0,3.toFloat())

@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Services">
-        <activity android:name=".ProviderRegisterActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".WorkSelectActivity"></activity>
+        <activity
+            android:name=".ProviderRegisterActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
