@@ -7,9 +7,8 @@ import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.services.Home_fragment.Companion.currentUser
-import com.example.services.models.User
 import com.example.services.models.Worker
+import com.example.services.shared.currentUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_provider_register.*
@@ -64,19 +63,19 @@ class ProviderRegisterActivity : AppCompatActivity() {
 
     private fun uploadWorker(){
         val uid = FirebaseAuth.getInstance().uid
-        if(uid==null)return
+        if(uid==null|| currentUser==null)return
 
-//        Log.d("Logs","Provider message ${currentUser!!.providesService}")
-//
-//        if(currentUser!!.providesService=="true"){
-//            Toast.makeText(this,"you are already Registered",Toast.LENGTH_SHORT).show()
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//            return
-//        }
+        Log.d("Logs","Provider message ${currentUser!!.providesService}")
+
+        if(currentUser!!.providesService=="true"){
+            Toast.makeText(this,"you are already Registered",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            return
+        }
 
         val ref = FirebaseDatabase.getInstance().getReference("/workers/$serviceType/$uid")
-        val worker = Worker(uid.toString(),serviceType,experience,description.toString(),"false",0,0,3.toFloat())
+        val worker = Worker(uid.toString(), currentUser!!.firstName, currentUser!!.lastName,serviceType,experience,description.toString(),"false",0,0,50)
         ref.setValue(worker)
                 .addOnSuccessListener {
                     Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()

@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         }
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email.toString(),password.toString())
             .addOnSuccessListener {
-                Log.d("Logs","$email\n$password\n${FirebaseAuth.getInstance().currentUser?.uid}")
                 email.clear()
                 password.clear()
                 val intent = Intent(this,HomeActivity::class.java)
