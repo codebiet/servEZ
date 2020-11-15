@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Services">
-        <activity android:name=".WorkSelectActivity"></activity>
+        <activity android:name=".CallWorkerActivity"></activity>
+        <activity android:name=".WorkSelectActivity" />
         <activity
             android:name=".ProviderRegisterActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -25,9 +26,10 @@
         <activity
             android:name=".SignupActivity"
             android:windowSoftInputMode="adjustPan" />
-        <service android:name=".MyFirebaseMessagingService"
-            android:exported="false"
-            >
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
