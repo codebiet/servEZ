@@ -45,7 +45,10 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         bottom_navigaion_view.setOnNavigationItemSelectedListener(mOnBottomNavigationListener)
-        bottom_navigaion_view.selectedItemId = R.id.action_home
+
+        if(savedInstanceState == null)
+            bottom_navigaion_view.selectedItemId = R.id.action_home
+
     }
 
 
