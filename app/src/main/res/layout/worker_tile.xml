@@ -2,15 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/work_list_bg"
+    android:elevation="4dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
     android:layout_marginBottom="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/woker_profile_img"
+        android:id="@+id/worker_profile_img"
         android:layout_width="83dp"
         android:layout_height="72dp"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.048"
@@ -27,9 +33,10 @@
         android:text="Worker Name"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toEndOf="@+id/woker_profile_img"
+        app:layout_constraintStart_toEndOf="@+id/worker_profile_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -38,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Worker Experience"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/worker_name"
         app:layout_constraintTop_toBottomOf="@+id/worker_name" />
 
@@ -46,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:textColor="@color/black"
         android:text="JobsDone"
         app:layout_constraintStart_toStartOf="@+id/worker_experience"
         app:layout_constraintTop_toBottomOf="@+id/worker_experience" />
@@ -56,6 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Rating"
+        android:textSize="15dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toEndOf="@+id/worker_job_done_count"
@@ -65,14 +76,12 @@
         android:id="@+id/worker_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
         android:layout_marginTop="28dp"
-        android:text="Woker description will be here"
+        android:layout_marginBottom="5dp"
+        android:text="Worker description will be here"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/woker_profile_img" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#c0c0c0"/>
+        app:layout_constraintTop_toBottomOf="@+id/worker_profile_img" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
