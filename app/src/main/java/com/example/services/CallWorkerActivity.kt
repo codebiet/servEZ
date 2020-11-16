@@ -1,6 +1,8 @@
 package com.example.services
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,9 +17,22 @@ class CallWorkerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_call_worker)
         val user = intent.getParcelableExtra<User>("UserKey")
-        val worker = intent.getParcelableExtra<Worker>("WorkerKey")
 
-        Log.d("Logs","Opened ${user?.lastName}")
+        worker_phone_call.setOnClickListener{
+           makeCall(user?.phone!!)
+        }
+        call_icon.setOnClickListener{
+            makeCall(user?.phone!!)
+        }
+        updateUI()
+
+        // Write your code here
+
+    }
+
+    private fun updateUI(){
+        val user = intent.getParcelableExtra<User>("UserKey")
+        val worker = intent.getParcelableExtra<Worker>("WorkerKey")
 
         worker_name_call.text = user?.firstName+" "+user?.lastName
         worker_experience_call.text = worker?.experience
@@ -44,7 +59,13 @@ class CallWorkerActivity : AppCompatActivity() {
         }else{
             worker_rating_call.setTextColor(Color.parseColor("#47a326"))
         }
+    }
 
+    private  fun makeCall(mobileNumber:String){
+        val intent = Intent()
+        intent.action = Intent.ACTION_DIAL
+        intent.data = Uri.parse("tel: $mobileNumber")
+        startActivity(intent)
     }
 
 
