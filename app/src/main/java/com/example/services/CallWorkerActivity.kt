@@ -7,12 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import com.example.services.messages.ChatActivity
 import com.example.services.models.User
 import com.example.services.models.Worker
+import com.example.services.shared.currentUser
 import kotlinx.android.synthetic.main.activity_call_worker.*
 import kotlinx.android.synthetic.main.worker_tile.view.*
 
 class CallWorkerActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_call_worker)
@@ -26,6 +29,12 @@ class CallWorkerActivity : AppCompatActivity() {
         }
         updateUI()
 
+        message_icon.setOnClickListener{
+            val intent = Intent(this,ChatActivity::class.java)
+            intent.putExtra("MY_ID", currentUser!!.uid)
+            intent.putExtra("RCV_ID", user!!.uid)
+            startActivity(intent)
+        }
         // Write your code here
 
     }
