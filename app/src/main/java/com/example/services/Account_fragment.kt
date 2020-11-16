@@ -21,8 +21,13 @@ class Account_fragment : Fragment() {
             name_account.setTextColor(Color.parseColor("#233B5D"))
         }
 
-        log_out_account.setOnClickListener{
+        edit_profile_account.setOnClickListener {
+            val intent =  Intent(activity, Edit_profile::class.java )
+            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
+            startActivity(intent)
+        }
 
+        log_out_account.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             val intent =  Intent(activity, MainActivity::class.java )
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)

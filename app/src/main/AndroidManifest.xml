@@ -29,7 +29,8 @@
         <activity
             android:name=".SignupActivity"
             android:windowSoftInputMode="adjustPan" />
-
+        <activity android:name=".Edit_profile"
+            android:windowSoftInputMode="adjustPan"/>
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
