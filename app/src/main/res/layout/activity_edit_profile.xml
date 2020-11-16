@@ -5,18 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
    >
 
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="164dp"
-        android:layout_height="105dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/brickwork" />
+
 
     <ImageView
         android:id="@+id/back"
@@ -31,63 +23,77 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="164dp"
+        android:fitsSystemWindows="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image">
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_bg"
+                android:orientation="vertical"
+                >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:padding="6dp"
                     android:text="First Name "
-                    android:textSize="16dp"
                     android:textColor="@color/purple_500"
-                    android:textStyle="bold"
-                    android:padding="6dp"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
 
                 <EditText
                     android:id="@+id/first_name_edit_profile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:drawableRight="@drawable/ic_baseline_edit_24"
                     android:ems="10"
+                    android:focusable="true"
                     android:inputType="textPersonName"
                     android:text="Name" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_bg"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:padding="6dp"
                     android:text="Last Name "
-                    android:textSize="16dp"
                     android:textColor="@color/purple_500"
-                    android:textStyle="bold"
-                    android:padding="6dp"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
 
                 <EditText
                     android:id="@+id/last_name_edit_profile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_edit_24"
@@ -95,82 +101,90 @@
                     android:inputType="textPersonName"
                     android:text="Name" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_bg"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:padding="6dp"
                     android:text="Gender"
-                    android:textSize="16dp"
                     android:textColor="@color/purple_500"
-                    android:textStyle="bold"
-                    android:padding="6dp"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
 
                 <RadioGroup
                     android:id="@+id/radio_gender"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:paddingLeft="10dp"
                     android:ems="10"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp">
 
                     <RadioButton
                         android:id="@+id/radioMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:buttonTint="#233B5D"
                         android:checked="true"
                         android:text="Male"
-                        android:textSize="16dp"
-                        android:layout_gravity="center_vertical"
                         android:textColor="#ff6d6e71"
-                        android:buttonTint="#233B5D"/>
+                        android:textSize="16dp" />
 
                     <RadioButton
                         android:id="@+id/radioFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="false"
                         android:layout_marginLeft="15dp"
-                        android:textSize="16dp"
+                        android:buttonTint="#233B5D"
+                        android:checked="false"
                         android:text="Female"
                         android:textColor="#ff6d6e71"
-                        android:buttonTint="#233B5D"/>
+                        android:textSize="16dp" />
+
                     <RadioButton
                         android:id="@+id/radioTrans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
+                        android:buttonTint="#233B5D"
                         android:checked="false"
-                        android:textSize="16dp"
                         android:text="Other"
                         android:textColor="#ff6d6e71"
-                        android:buttonTint="#233B5D"/>
+                        android:textSize="16dp" />
 
                 </RadioGroup>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_bg"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:padding="6dp"
                     android:text="City"
-                    android:textSize="16dp"
                     android:textColor="@color/purple_500"
-                    android:textStyle="bold"
-                    android:padding="6dp"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
 
                 <EditText
                     android:id="@+id/city_edit_profile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:drawableRight="@drawable/ic_baseline_edit_24"
@@ -178,26 +192,32 @@
                     android:inputType="textPersonName"
                     android:text="Name" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_bg"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:padding="6dp"
                     android:text="Address"
-                    android:textSize="16dp"
                     android:textColor="@color/purple_500"
-                    android:textStyle="bold"
-                    android:padding="6dp"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
 
                 <EditText
                     android:id="@+id/address_edit_profile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:focusable="true"
+
                     android:background="@android:color/transparent"
                     android:drawableRight="@drawable/ic_baseline_edit_24"
                     android:ems="10"
@@ -206,13 +226,13 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/save_changes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save Changes"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:letterSpacing="0.10"
-                android:id="@+id/save_changes" />
+                android:text="Save Changes" />
 
         </LinearLayout>
     </ScrollView>
