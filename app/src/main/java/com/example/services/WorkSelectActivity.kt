@@ -1,14 +1,18 @@
 package com.example.services
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isEmpty
 import com.example.services.models.User
 import com.example.services.models.Worker
 import com.google.firebase.database.DataSnapshot
@@ -18,17 +22,52 @@ import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_call_worker.*
+import kotlinx.android.synthetic.main.activity_work_select.*
 import kotlinx.android.synthetic.main.worker_tile.view.*
 
 class WorkSelectActivity : AppCompatActivity() {
-    val adapter = GroupAdapter<ViewHolder>()
+    val activeAdapter = GroupAdapter<ViewHolder>()
+    val inactiveAdapter = GroupAdapter<ViewHolder>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_select)
 
         val activeWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.active_worker_view)
-        activeWorkerView.adapter = adapter
+        val inactiveWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.inactive_worker_view)
+        activeWorkerView.adapter = activeAdapter
+        inactiveWorkerView.adapter = inactiveAdapter
+
         loadWorkers()
+
+        if(activeAdapter.itemCount==0){
+            activeWorkerView.visibility = View.GONE;
+            empty_view.visibility = View.VISIBLE;
+        }else{
+            activeWorkerView.visibility = View.VISIBLE;
+            empty_view.visibility = View.GONE;
+        }
+
+        if(inactiveAdapter.itemCount==0){
+            inactiveWorkerView.visibility = View.GONE;
+            empty_view_bottom.visibility = View.VISIBLE;
+        }else{
+            inactiveWorkerView.visibility = View.VISIBLE;
+            empty_view_bottom.visibility = View.GONE;
+        }
+
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        Log.d("Logs","${newConfig.orientation}")
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("Logs","Landscape")
+            Toast.makeText(baseContext, "Landscape Mode", Toast.LENGTH_SHORT).show()
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d("Logs","Portrait")
+            Toast.makeText(baseContext, "Portrait Mode", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadWorkers(){
@@ -44,7 +83,6 @@ class WorkSelectActivity : AppCompatActivity() {
                     loadWorkerData(worker!!)
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })
@@ -53,12 +91,34 @@ class WorkSelectActivity : AppCompatActivity() {
 
     private fun loadWorkerData(worker: Worker){
 
+        val activeWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.active_worker_view)
+        val inactiveWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.inactive_worker_view)
         val ref = FirebaseDatabase.getInstance().getReference("users/${worker.workerUID}")
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java)
                 if(user!=null){
-                    adapter.add(WorkerTile(worker, user))
+                    if(worker.available=="true")
+                        activeAdapter.add(WorkerTile(worker, user))
+                    else
+                        inactiveAdapter.add(WorkerTile(worker, user))
+
+                    if(activeAdapter.itemCount==0){
+                        activeWorkerView.visibility = View.GONE;
+                        empty_view.visibility = View.VISIBLE;
+                    }else{
+                        activeWorkerView.visibility = View.VISIBLE;
+                        empty_view.visibility = View.GONE;
+                    }
+
+                    if(inactiveAdapter.itemCount==0){
+                        inactiveWorkerView.visibility = View.GONE;
+                        empty_view_bottom.visibility = View.VISIBLE;
+                    }else{
+                        inactiveWorkerView.visibility = View.VISIBLE;
+                        empty_view_bottom.visibility = View.GONE;
+                    }
+
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
