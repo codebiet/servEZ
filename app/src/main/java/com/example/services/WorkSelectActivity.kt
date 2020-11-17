@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -63,10 +64,10 @@ class WorkSelectActivity : AppCompatActivity() {
         Log.d("Logs","${newConfig.orientation}")
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.d("Logs","Landscape")
-            Toast.makeText(baseContext, "Landscape Mode", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(baseContext, "Landscape Mode", Toast.LENGTH_SHORT).show()
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Log.d("Logs","Portrait")
-            Toast.makeText(baseContext, "Portrait Mode", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(baseContext, "Portrait Mode", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -87,7 +88,6 @@ class WorkSelectActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun loadWorkerData(worker: Worker){
 
@@ -154,22 +154,26 @@ class WorkSelectActivity : AppCompatActivity() {
                 viewHolder.itemView.worker_rating.setTextColor(Color.parseColor("#47a326"))
             }
 
-            var name = worker.serviceType
-            val img = viewHolder.itemView.findViewById<ImageView>(R.id.worker_profile_img)
-            if(name=="Mechanic"){
-                img.setImageResource(R.drawable.mechanic)
-            } else if(name=="Carpenter"){
-                img.setImageResource(R.drawable.carpenter)
-            }else if(name=="Plumber"){
-                img.setImageResource(R.drawable.plumber)
-            }else if(name=="Bricklayer"){
-                img.setImageResource(R.drawable.brickwork)
-            }else if(name=="Electrician"){
-                img.setImageResource(R.drawable.electrician)
-            }else if(name=="Painter"){
-                img.setImageResource(R.drawable.painter)
+            if(user?.profileImgURL=="NULL"||user?.profileImgURL==null){
+                var name = worker.serviceType
+                val img = viewHolder.itemView.findViewById<ImageView>(R.id.worker_profile_img)
+                if(name=="Mechanic"){
+                    img.setImageResource(R.drawable.mechanic)
+                } else if(name=="Carpenter"){
+                    img.setImageResource(R.drawable.carpenter)
+                }else if(name=="Plumber"){
+                    img.setImageResource(R.drawable.plumber)
+                }else if(name=="Bricklayer"){
+                    img.setImageResource(R.drawable.brickwork)
+                }else if(name=="Electrician"){
+                    img.setImageResource(R.drawable.electrician)
+                }else if(name=="Painter"){
+                    img.setImageResource(R.drawable.painter)
+                }else{
+                    img.setImageResource(R.drawable.builder)
+                }
             }else{
-                img.setImageResource(R.drawable.builder)
+                Picasso.get().load(user.profileImgURL).into(viewHolder.itemView.worker_profile_img)
             }
 
             viewHolder.itemView.setOnClickListener{

@@ -11,6 +11,7 @@ import com.example.services.messages.ChatActivity
 import com.example.services.models.User
 import com.example.services.models.Worker
 import com.example.services.shared.currentUser
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_call_worker.*
 import kotlinx.android.synthetic.main.worker_tile.view.*
 
@@ -20,6 +21,12 @@ class CallWorkerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_call_worker)
         val user = intent.getParcelableExtra<User>("UserKey")
+        val worker = intent.getParcelableExtra<Worker>("WorkerKey")
+
+        if(user?.profileImgURL=="NULL"||user?.profileImgURL==null){
+        }else{
+            Picasso.get().load(user?.profileImgURL).into(worker_profile_pic)
+        }
 
         worker_phone_call.setOnClickListener{
            makeCall(user?.phone!!)
@@ -33,6 +40,10 @@ class CallWorkerActivity : AppCompatActivity() {
             val intent = Intent(this,ChatActivity::class.java)
             intent.putExtra("MY_ID", currentUser!!.uid)
             intent.putExtra("RCV_ID", user!!.uid)
+
+            intent.putExtra("MY_CLASS", currentUser)
+            intent.putExtra("RCV_CLASS", user)
+
             startActivity(intent)
         }
         // Write your code here
