@@ -25,10 +25,10 @@ import kotlinx.android.synthetic.main.latest_msg_tile.view.*
 class ChatActivity : AppCompatActivity() {
 
     val adapter = GroupAdapter<ViewHolder>()
-    lateinit var myClass:User
-    lateinit var rcvClass:User
     lateinit var fromid:String
     lateinit var toId:String
+    var myClass:User?=null
+    var rcvClass:User?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +62,6 @@ class ChatActivity : AppCompatActivity() {
         }else{
             rcvClass = intent.getParcelableExtra("RCV_CLASS")!!
         }
-
 
         recyclerview_chatlog.adapter = adapter
         loadMessages()
