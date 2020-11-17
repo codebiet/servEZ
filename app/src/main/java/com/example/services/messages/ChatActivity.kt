@@ -9,31 +9,68 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.services.R
 import com.example.services.models.ChatMessage
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.example.services.models.User
+import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_call_worker.*
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.chat_from_row.view.*
+import kotlinx.android.synthetic.main.chat_to_row.view.*
+import kotlinx.android.synthetic.main.latest_msg_tile.view.*
 
 
 class ChatActivity : AppCompatActivity() {
 
     val adapter = GroupAdapter<ViewHolder>()
+    lateinit var myClass:User
+    lateinit var rcvClass:User
+    lateinit var fromid:String
+    lateinit var toId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        toId = intent.getStringExtra("RCV_ID")!!
+        fromid = intent.getStringExtra("MY_ID")!!
+        Log.d("Logs","Run.....")
+
+        if(intent.getParcelableExtra<User>("MY_CLASS")==null){
+            val ref = FirebaseDatabase.getInstance().getReference("/users/$fromid")
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    myClass = snapshot.getValue(User::class.java)!!
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+        }else{
+            myClass = intent.getParcelableExtra("MY_CLASS")!!
+        }
+
+        if(intent.getParcelableExtra<User>("RCV_CLASS")==null){
+            val ref = FirebaseDatabase.getInstance().getReference("/users/$toId")
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    rcvClass = snapshot.getValue(User::class.java)!!
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+        }else{
+            rcvClass = intent.getParcelableExtra("RCV_CLASS")!!
+        }
+
+
         recyclerview_chatlog.adapter = adapter
         loadMessages()
         send_btn.setOnClickListener{
-            Log.d("Chat", "Attempt to send")
-            performSendMessage()
+            if(!edittext_msg.text.isEmpty())
+                performSendMessage()
             hideKeyboard(this)
         }
-
     }
 
     private fun hideKeyboard(activity: Activity) {
@@ -42,13 +79,10 @@ class ChatActivity : AppCompatActivity() {
         if (view == null) {
             view = View(activity)
         }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun loadMessages(){
-        val fromid = intent.getStringExtra("MY_ID")
-        val toId = intent.getStringExtra("RCV_ID")
-
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromid/$toId")
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -56,9 +90,9 @@ class ChatActivity : AppCompatActivity() {
                 if (chatMessage != null) {
                     Log.d("Chat", "${chatMessage?.text}")
                     if (chatMessage.fromId == fromid) {
-                        adapter.add(ChatToItem(chatMessage.text))
+                        adapter.add(ChatToItem(chatMessage.text,myClass))
                     } else if (chatMessage.fromId == toId) {
-                        adapter.add(ChatFromItem(chatMessage.text))
+                        adapter.add(ChatFromItem(chatMessage.text,rcvClass))
                     }
                 }
             }
@@ -71,13 +105,9 @@ class ChatActivity : AppCompatActivity() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
             }
         })
-
     }
 
     private fun performSendMessage(){
-
-        val fromid = intent.getStringExtra("MY_ID")
-        val toId = intent.getStringExtra("RCV_ID")
 
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromid/$toId").push()
         val toref = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromid").push()
@@ -102,19 +132,26 @@ class ChatActivity : AppCompatActivity() {
     }
 
 
-    class ChatFromItem(val text: String): Item<ViewHolder>() {
+    class ChatFromItem(val text: String, private val rcvClass:User?): Item<ViewHolder>() {
         override fun bind(viewHolder: ViewHolder, position: Int) {
-            viewHolder.itemView.findViewById<TextView>(R.id.textview_from_row).text = text
+            viewHolder.itemView.textview_from_row.text = text
+            if(rcvClass?.profileImgURL=="NULL"||rcvClass?.profileImgURL==null){
+            }else{
+                Picasso.get().load(rcvClass?.profileImgURL).into(viewHolder.itemView.imageview_chat_from_row)
+            }
         }
         override fun getLayout(): Int {
             return R.layout.chat_from_row
         }
     }
 
-    class ChatToItem(val text: String): Item<ViewHolder>() {
+    class ChatToItem(val text: String, private val myClass:User?): Item<ViewHolder>() {
         override fun bind(viewHolder: ViewHolder, position: Int) {
-            Log.d("Msg", "Called")
             viewHolder.itemView.findViewById<TextView>(R.id.textview_to_row).text = text
+            if(myClass?.profileImgURL=="NULL"||myClass?.profileImgURL==null){
+            }else{
+                Picasso.get().load(myClass?.profileImgURL).into(viewHolder.itemView.imageview_chat_to_row)
+            }
 
         }
         override fun getLayout(): Int {

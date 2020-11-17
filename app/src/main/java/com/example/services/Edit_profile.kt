@@ -47,6 +47,4 @@ class Edit_profile:AppCompatActivity() {
         }
     }
 
-
-
 }
