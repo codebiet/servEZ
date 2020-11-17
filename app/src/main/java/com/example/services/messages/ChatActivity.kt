@@ -35,50 +35,26 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
         toId = intent.getStringExtra("RCV_ID")!!
         fromid = intent.getStringExtra("MY_ID")!!
-        Log.d("Logs","Run.....")
+        myClass = intent.getParcelableExtra("MY_CLASS")!!
 
-        if(intent.getParcelableExtra<User>("MY_CLASS")==null){
-            val ref = FirebaseDatabase.getInstance().getReference("/users/$fromid")
-            ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    myClass = snapshot.getValue(User::class.java)!!
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
-        }else{
-            myClass = intent.getParcelableExtra("MY_CLASS")!!
-        }
 
-        if(intent.getParcelableExtra<User>("RCV_CLASS")==null){
-            val ref = FirebaseDatabase.getInstance().getReference("/users/$toId")
-            ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    rcvClass = snapshot.getValue(User::class.java)!!
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
-        }else{
-            rcvClass = intent.getParcelableExtra("RCV_CLASS")!!
-        }
+        Log.d("Logs","rcv is null")
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$toId")
+        ref.keepSynced(true)
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                rcvClass = snapshot.getValue(User::class.java)!!
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
         recyclerview_chatlog.adapter = adapter
         loadMessages()
         send_btn.setOnClickListener{
             if(!edittext_msg.text.isEmpty())
                 performSendMessage()
-            hideKeyboard(this)
         }
-    }
-
-    private fun hideKeyboard(activity: Activity) {
-        val imm: InputMethodManager = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        var view: View? = activity.currentFocus
-        if (view == null) {
-            view = View(activity)
-        }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun loadMessages(){
@@ -87,13 +63,13 @@ class ChatActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
                 if (chatMessage != null) {
-                    Log.d("Chat", "${chatMessage?.text}")
                     if (chatMessage.fromId == fromid) {
                         adapter.add(ChatToItem(chatMessage.text,myClass))
                     } else if (chatMessage.fromId == toId) {
                         adapter.add(ChatFromItem(chatMessage.text,rcvClass))
                     }
                 }
+                recyclerview_chatlog.scrollToPosition(adapter.itemCount-1)
             }
             override fun onCancelled(error: DatabaseError) {
             }
@@ -130,10 +106,10 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-
     class ChatFromItem(val text: String, private val rcvClass:User?): Item<ViewHolder>() {
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.textview_from_row.text = text
+            Log.d("Logs","profile img ${rcvClass?.profileImgURL} of ${rcvClass?.firstName}")
             if(rcvClass?.profileImgURL=="NULL"||rcvClass?.profileImgURL==null){
             }else{
                 Picasso.get().load(rcvClass?.profileImgURL).into(viewHolder.itemView.imageview_chat_from_row)
@@ -151,7 +127,6 @@ class ChatActivity : AppCompatActivity() {
             }else{
                 Picasso.get().load(myClass?.profileImgURL).into(viewHolder.itemView.imageview_chat_to_row)
             }
-
         }
         override fun getLayout(): Int {
             return R.layout.chat_to_row

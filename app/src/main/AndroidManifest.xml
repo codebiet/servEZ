@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Services">
-        <activity android:name=".messages.ChatActivity"></activity>
+        <activity android:name=".messages.ChatActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".CallWorkerActivity" />
         <activity android:name=".WorkSelectActivity" />
         <activity

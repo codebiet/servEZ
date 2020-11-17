@@ -35,6 +35,7 @@ class Messaging_fragment : Fragment() {
     private val adaptor = GroupAdapter<ViewHolder>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         recyclerview_latest_msg.adapter = adaptor
         recyclerview_latest_msg.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL))
         loadLatestMsg()
@@ -47,6 +48,7 @@ class Messaging_fragment : Fragment() {
         latestMsgMap.values.forEach{
             adaptor.add(LatestMsg(it))
         }
+        adaptor.notifyDataSetChanged()
     }
 
     private  fun loadLatestMsg(){
@@ -55,12 +57,13 @@ class Messaging_fragment : Fragment() {
         ref.addChildEventListener(object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
+                adaptor.notifyDataSetChanged()
                 latestMsgMap[snapshot.key!!]= chatMessage!!
                 refreshRecyclerView()
-
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
+                adaptor.notifyDataSetChanged()
                 latestMsgMap[snapshot.key!!]= chatMessage!!
                 refreshRecyclerView()
             }

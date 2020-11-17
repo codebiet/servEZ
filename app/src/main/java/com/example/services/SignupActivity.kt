@@ -87,7 +87,6 @@ class SignupActivity: AppCompatActivity() {
         val user = User(uid,firstName.toString(),lastName.toString(),gender.toString(),email.toString(),phone.toString(),city.toString(),address.toString(),"false","NULL")
         ref.setValue(user)
                 .addOnSuccessListener {
-                    Log.d("MainMsg","User saved to database $user")
                     clearFields()
                     val intent = Intent(this, HomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -95,7 +94,6 @@ class SignupActivity: AppCompatActivity() {
                 }
                 .addOnFailureListener{
                     Toast.makeText(this,"Failed to Register: ${it.message}",Toast.LENGTH_SHORT).show()
-                    Log.d("Logs","Failed to upload data ${it.message}")
                     FirebaseAuth.getInstance().currentUser?.delete()
                 }
     }
