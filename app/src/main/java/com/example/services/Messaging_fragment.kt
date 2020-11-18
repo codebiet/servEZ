@@ -46,24 +46,26 @@ class Messaging_fragment : Fragment() {
     private fun refreshRecyclerView(){
         adaptor.clear()
         latestMsgMap.values.forEach{
+            Log.d("Logs","${it.text}")
             adaptor.add(LatestMsg(it))
         }
         adaptor.notifyDataSetChanged()
     }
 
     private  fun loadLatestMsg(){
+        Log.d("Logs","Latest Msg Called")
         val fromid = currentUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromid")
+        ref.keepSynced(true)
         ref.addChildEventListener(object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
-                adaptor.notifyDataSetChanged()
+                Log.d("Logs","From fb ${chatMessage?.text}")
                 latestMsgMap[snapshot.key!!]= chatMessage!!
                 refreshRecyclerView()
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
-                adaptor.notifyDataSetChanged()
                 latestMsgMap[snapshot.key!!]= chatMessage!!
                 refreshRecyclerView()
             }

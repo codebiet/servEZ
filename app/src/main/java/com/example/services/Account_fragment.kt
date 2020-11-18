@@ -95,7 +95,7 @@ class Account_fragment : Fragment() {
                         FirebaseDatabase.getInstance().getReference("users/${currentUser?.uid}").child("profileImgURL").setValue(it.toString())
                                 .addOnSuccessListener {
                                     Toast.makeText(context,"Successfully Uploaded Profile Picture", Toast.LENGTH_SHORT).show()
-                                    GetCurrentUser()
+                                    GetCurrentUser(context!!)
                                 }
                     }
                 }

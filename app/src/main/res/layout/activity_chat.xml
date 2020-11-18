@@ -9,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_chatlog"
         android:layout_width="match_parent"
-        android:layout_height="560dp"
+        android:layout_height="565dp"
         android:background="#f2f4f6"
         android:paddingBottom="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.644" />
+        app:layout_constraintVertical_bias="0.900" />
 
     <EditText
         android:id="@+id/edittext_msg"

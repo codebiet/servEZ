@@ -1,10 +1,7 @@
 package com.example.services.messages
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.services.R
@@ -15,12 +12,9 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_call_worker.*
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
-import kotlinx.android.synthetic.main.latest_msg_tile.view.*
-
 
 class ChatActivity : AppCompatActivity() {
 
@@ -37,8 +31,6 @@ class ChatActivity : AppCompatActivity() {
         fromid = intent.getStringExtra("MY_ID")!!
         myClass = intent.getParcelableExtra("MY_CLASS")!!
 
-
-        Log.d("Logs","rcv is null")
         val ref = FirebaseDatabase.getInstance().getReference("/users/$toId")
         ref.keepSynced(true)
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -109,7 +101,6 @@ class ChatActivity : AppCompatActivity() {
     class ChatFromItem(val text: String, private val rcvClass:User?): Item<ViewHolder>() {
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.textview_from_row.text = text
-            Log.d("Logs","profile img ${rcvClass?.profileImgURL} of ${rcvClass?.firstName}")
             if(rcvClass?.profileImgURL=="NULL"||rcvClass?.profileImgURL==null){
             }else{
                 Picasso.get().load(rcvClass?.profileImgURL).into(viewHolder.itemView.imageview_chat_from_row)

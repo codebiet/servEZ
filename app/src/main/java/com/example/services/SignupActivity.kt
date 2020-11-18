@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.services.models.User
+import com.example.services.shared.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -88,9 +89,7 @@ class SignupActivity: AppCompatActivity() {
         ref.setValue(user)
                 .addOnSuccessListener {
                     clearFields()
-                    val intent = Intent(this, HomeActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
+                    GetCurrentUser(this)
                 }
                 .addOnFailureListener{
                     Toast.makeText(this,"Failed to Register: ${it.message}",Toast.LENGTH_SHORT).show()
