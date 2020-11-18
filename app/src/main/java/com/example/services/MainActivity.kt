@@ -1,5 +1,6 @@
 package com.example.services
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.graphics.Typeface.BOLD
@@ -18,6 +19,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.services.shared.GetCurrentUser
+import com.example.services.shared.LoadingDialog
 import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.android.synthetic.main.activity_main.*

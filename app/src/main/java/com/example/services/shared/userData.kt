@@ -16,7 +16,6 @@ fun GetCurrentUser(context: Context){
     val activity = context as Activity
     val loadingDialog = LoadingDialog(activity)
 
-    Log.d("Logs","Start Loading")
     loadingDialog.startLoadingDialog()
 
     var uid = FirebaseAuth.getInstance().uid
@@ -27,7 +26,6 @@ fun GetCurrentUser(context: Context){
     val postListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             loadingDialog.dismissDialog()
-            Log.d("Logs","Stop Loading")
             currentUser = dataSnapshot.getValue(User::class.java)
             Utils.startActivity(context, HomeActivity::class.java)
         }
