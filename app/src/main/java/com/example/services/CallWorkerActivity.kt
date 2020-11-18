@@ -40,10 +40,7 @@ class CallWorkerActivity : AppCompatActivity() {
             val intent = Intent(this,ChatActivity::class.java)
             intent.putExtra("MY_ID", currentUser!!.uid)
             intent.putExtra("RCV_ID", user!!.uid)
-
             intent.putExtra("MY_CLASS", currentUser)
-            intent.putExtra("RCV_CLASS", user)
-
             startActivity(intent)
         }
         // Write your code here
@@ -87,6 +84,5 @@ class CallWorkerActivity : AppCompatActivity() {
         intent.data = Uri.parse("tel: $mobileNumber")
         startActivity(intent)
     }
-
 
 }

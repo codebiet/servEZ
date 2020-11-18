@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.services.shared.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,9 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if(FirebaseAuth.getInstance().currentUser?.uid != null) {
-            val intent = Intent(this, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+            GetCurrentUser(this)
         }
         val buttonLogin:Button = findViewById(R.id.button_login)
         buttonLogin.setOnClickListener{
@@ -69,12 +68,10 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 email.clear()
                 password.clear()
-                val intent = Intent(this,HomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                GetCurrentUser(this)
             }
                 .addOnFailureListener{
-                    Log.d("Logs","failed to login")
+                    Log.d("Logs","failed to login ${it.message}")
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
                 }
     }

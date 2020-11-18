@@ -29,12 +29,6 @@ class Home_fragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         verifyIfLoggedIn()
-        GetCurrentUser()
-
-        sign_out.setOnClickListener{
-          signOut()
-        }
-
         work_mechanic.setOnClickListener{
             val intent = Intent(activity,WorkSelectActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
@@ -72,21 +66,8 @@ class Home_fragment() : Fragment() {
             startActivity(intent)
         }
 
-
-        button_worker.setOnClickListener{
-            val intent = Intent(activity,ProviderRegisterActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
-            startActivity(intent)
-        }
-
     }
 
-    private  fun signOut(){
-        FirebaseAuth.getInstance().signOut()
-        val intent =  Intent(activity, MainActivity::class.java )
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-    }
     private fun verifyIfLoggedIn(){
         var uid = FirebaseAuth.getInstance().uid
         if (uid==null){
@@ -96,6 +77,5 @@ class Home_fragment() : Fragment() {
             startActivity(intent)
         }
     }
-
 
 }

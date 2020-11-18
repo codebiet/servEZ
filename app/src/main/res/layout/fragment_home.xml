@@ -12,68 +12,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <Button
-        android:id="@+id/button_worker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="36dp"
-        android:text="Service"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/sign_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Out"
-        android:textColor="#233B5D"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:drawableTop="@drawable/ic_baseline_exit_to_app_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="103dp"
-            android:layout_height="94dp"
-            app:layout_constraintBottom_toTopOf="@+id/welcome_text"
-            app:layout_constraintEnd_toEndOf="@+id/welcome_text"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/welcome_text"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/welcome_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello!"
-        android:textColor="#233B5D"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.279" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="360dp"
-        app:layout_constraintVertical_weight="1"
-        android:layout_marginTop="45dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_text">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -84,15 +32,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:id="@+id/work_mechanic"
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
                     android:background="@drawable/task_list_bg"
                     android:backgroundTint="#37a132"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="18dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,12 +95,12 @@
                     android:id="@+id/work_bricklayer"
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="18dp"
                     android:background="@drawable/task_list_bg"
                     android:backgroundTint="#b82828"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="18dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -173,19 +122,19 @@
                     android:id="@+id/work_plumber"
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="18dp"
                     android:background="@drawable/task_list_bg"
                     android:backgroundTint="#008ffc"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="18dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="153dp"
                         android:layout_height="wrap_content"
                         android:drawableTop="@drawable/ic_plumber"
+                        android:gravity="center"
                         android:paddingTop="22dp"
                         android:paddingBottom="22dp"
-                        android:gravity="center"
                         android:text="Plumber"
                         android:textColor="@color/white"
                         android:textSize="25dp"
@@ -204,19 +153,19 @@
                     android:id="@+id/work_painter"
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
-                    android:minWidth="155dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="18dp"
                     android:background="@drawable/task_list_bg"
                     android:backgroundTint="#9230a6"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="18dp">
+                    android:minWidth="155dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableTop="@drawable/ic_painter"
                         android:layout_marginLeft="12dp"
+                        android:drawableTop="@drawable/ic_painter"
                         android:paddingLeft="22dp"
                         android:paddingTop="22dp"
                         android:paddingRight="22dp"
@@ -233,19 +182,19 @@
                     android:id="@+id/work_electrician"
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="18dp"
                     android:background="@drawable/task_list_bg"
                     android:backgroundTint="#4234c7"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="18dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="153dp"
                         android:layout_height="wrap_content"
                         android:drawableTop="@drawable/ic_electrician"
+                        android:gravity="center"
                         android:paddingTop="22dp"
                         android:paddingBottom="22dp"
-                        android:gravity="center"
                         android:text="Electrician"
                         android:textColor="@color/white"
                         android:textSize="23dp"
