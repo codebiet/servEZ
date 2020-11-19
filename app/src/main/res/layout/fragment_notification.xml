@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="55dp"
     android:orientation="vertical">
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notification_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="4"
-        android:gravity="center"/>
-</LinearLayout>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

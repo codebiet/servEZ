@@ -7,41 +7,48 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
 import com.example.services.messages.ChatActivity
+import com.example.services.models.Invitation
 import com.example.services.models.User
 import com.example.services.models.Worker
 import com.example.services.shared.currentUser
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_call_worker.*
 import kotlinx.android.synthetic.main.worker_tile.view.*
+import java.util.*
 
 class CallWorkerActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_call_worker)
-        val user = intent.getParcelableExtra<User>("UserKey")
-        val worker = intent.getParcelableExtra<Worker>("WorkerKey")
 
-        if(user?.profileImgURL=="NULL"||user?.profileImgURL==null){
+        val user = intent.getParcelableExtra<User>("UserKey")!!
+        val worker = intent.getParcelableExtra<Worker>("WorkerKey")!!
+        if(user.profileImgURL=="NULL"||user.profileImgURL==null){
         }else{
-            Picasso.get().load(user?.profileImgURL).into(worker_profile_pic)
+            Picasso.get().load(user.profileImgURL).into(worker_profile_pic)
         }
 
         worker_phone_call.setOnClickListener{
-           makeCall(user?.phone!!)
+           makeCall(user.phone)
         }
         call_icon.setOnClickListener{
-            makeCall(user?.phone!!)
+            makeCall(user.phone)
         }
         updateUI()
 
         message_icon.setOnClickListener{
             val intent = Intent(this,ChatActivity::class.java)
             intent.putExtra("MY_ID", currentUser!!.uid)
-            intent.putExtra("RCV_ID", user!!.uid)
+            intent.putExtra("RCV_ID", user.uid)
             intent.putExtra("MY_CLASS", currentUser)
             startActivity(intent)
+        }
+        invite_btn.setOnClickListener{
+            invite()
         }
         // Write your code here
 
@@ -83,6 +90,26 @@ class CallWorkerActivity : AppCompatActivity() {
         intent.action = Intent.ACTION_DIAL
         intent.data = Uri.parse("tel: $mobileNumber")
         startActivity(intent)
+    }
+
+    private fun invite(){
+
+        val user = intent.getParcelableExtra<User>("UserKey")!!
+        val worker = intent.getParcelableExtra<Worker>("WorkerKey")!!
+        val timestamp = System.currentTimeMillis()
+        val ref = FirebaseDatabase.getInstance().getReference("/invitations/${worker.workerUID}/${currentUser?.uid}/$timestamp")
+        val toref = FirebaseDatabase.getInstance().getReference("/invitations/${currentUser?.uid}/${worker.workerUID}/$timestamp")
+        val invitation = Invitation(timestamp.toString(),worker.serviceType,currentUser!!.uid,worker.workerUID,"Pending", Calendar.getInstance().time.toString(),
+                currentUser?.firstName+ " "+ currentUser?.lastName,user.firstName+" "+user.lastName)
+
+        ref.setValue(invitation)
+                .addOnSuccessListener {
+                    Toast.makeText(this,"Invitation Sent",Toast.LENGTH_SHORT).show()
+                    toref.setValue(invitation)
+                }
+                .addOnFailureListener{
+                    Toast.makeText(this,"Failed: ${it.message}",Toast.LENGTH_SHORT).show()
+                }
     }
 
 }
