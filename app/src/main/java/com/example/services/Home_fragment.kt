@@ -44,13 +44,13 @@ class Home_fragment() : Fragment() {
         work_bricklayer.setOnClickListener{
             val intent = Intent(activity,WorkSelectActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
-            intent.putExtra("workerType","Plumber")
+            intent.putExtra("workerType","Bricklayer")
             startActivity(intent)
         }
         work_plumber.setOnClickListener{
             val intent = Intent(activity,WorkSelectActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
-            intent.putExtra("workerType","Bricklayer")
+            intent.putExtra("workerType","Plumber")
             startActivity(intent)
         }
         work_painter.setOnClickListener{
@@ -65,7 +65,6 @@ class Home_fragment() : Fragment() {
             intent.putExtra("workerType","Electrician")
             startActivity(intent)
         }
-
     }
 
     private fun verifyIfLoggedIn(){

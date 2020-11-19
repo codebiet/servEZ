@@ -80,7 +80,7 @@ class ProviderRegisterActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()
                     val userRef = FirebaseDatabase.getInstance().getReference("/users/$uid")
-                    userRef.child("providesService").setValue("true")
+                    userRef.child("providesService").setValue(serviceType)
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                 }
