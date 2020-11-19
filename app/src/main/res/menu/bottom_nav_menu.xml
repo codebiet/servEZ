@@ -16,8 +16,8 @@
     <item
     android:id="@+id/action_notification"
     android:enabled="true"
-    android:icon="@drawable/ic_baseline_notifications_24"
-    android:title="Notification"
+    android:icon="@drawable/ic_baseline_article_24"
+    android:title="Contract"
     app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_account"
