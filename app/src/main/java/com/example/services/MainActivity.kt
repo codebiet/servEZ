@@ -1,6 +1,7 @@
 package com.example.services
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.graphics.Typeface.BOLD
@@ -20,12 +21,26 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.services.shared.GetCurrentUser
 import com.example.services.shared.LoadingDialog
+import com.example.services.shared.currentUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_sample.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 
 class MainActivity : AppCompatActivity() {
+
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         string.setSpan(click, 23, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView6.text = string;
         textView6.setMovementMethod(LinkMovementMethod.getInstance()) ;
+
     }
 
     private fun performLogin(){

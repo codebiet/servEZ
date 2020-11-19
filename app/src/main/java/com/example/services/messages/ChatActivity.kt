@@ -4,20 +4,32 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.services.NotificationData
+import com.example.services.PushNotification
 import com.example.services.R
+import com.example.services.RetrofitInstance
+
 import com.example.services.models.ChatMessage
 import com.example.services.models.User
+import com.example.services.shared.currentUser
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
+
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
+const val TOPIC = "/topics/myTopic"
 class ChatActivity : AppCompatActivity() {
-
+    val TAG = "ChatActivity"
     val adapter = GroupAdapter<ViewHolder>()
     lateinit var fromid:String
     lateinit var toId:String
@@ -41,14 +53,38 @@ class ChatActivity : AppCompatActivity() {
             }
         })
 
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
         recyclerview_chatlog.adapter = adapter
         loadMessages()
         send_btn.setOnClickListener{
-            if(!edittext_msg.text.isEmpty())
+            if(!edittext_msg.text.isEmpty()) {
                 performSendMessage()
+                val userName = currentUser?.firstName + " " + currentUser?.lastName
+                val title = "New Notification"
+                val message = userName + " | " + edittext_msg.text.toString()
+                if(title.isNotEmpty() && message.isNotEmpty()) {
+                    PushNotification(
+                        NotificationData(title,message),
+                        rcvClass!!.token
+                    ).also {
+                        sendNotification(it)
+                    }
+                }
+            }
         }
     }
-
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if(response.isSuccessful) {
+                Log.d(TAG, "Response: ${Gson().toJson(response)}")
+            } else {
+                Log.e(TAG, response.errorBody().toString())
+            }
+        } catch(e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+    }
     private fun loadMessages(){
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromid/$toId")
         ref.addChildEventListener(object : ChildEventListener {

@@ -1,5 +1,7 @@
 package com.example.services
 
+
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +14,7 @@ import com.example.services.models.User
 import com.example.services.shared.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.iid.FirebaseInstanceId
 
 class SignupActivity: AppCompatActivity() {
 
@@ -28,6 +31,7 @@ class SignupActivity: AppCompatActivity() {
     lateinit var phone:Editable
     lateinit var password:Editable
     lateinit var passwordConfirm:Editable
+    lateinit var token:String
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +61,17 @@ class SignupActivity: AppCompatActivity() {
             phone = findViewById<EditText>(R.id.edittext_phone).text
             password = findViewById<EditText>(R.id.edittext_password).text
             passwordConfirm = findViewById<EditText>(R.id.edittext_password_confirm).text
+            token = ""
+            gettoken(token)
             registerUser()
+        }
+
+    }
+    private fun gettoken(token:String) {
+        FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { it ->
+            FirebaseService.token = it.token
+            this.token = it.token
         }
 
     }
@@ -85,7 +99,7 @@ class SignupActivity: AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid
         if(uid==null)return
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
-        val user = User(uid,firstName.toString(),lastName.toString(),gender.toString(),email.toString(),phone.toString(),city.toString(),address.toString(),"false","NULL")
+        val user = User(uid,firstName.toString(),lastName.toString(),gender.toString(),email.toString(),phone.toString(),city.toString(),address.toString(),"false","NULL",token)
         ref.setValue(user)
                 .addOnSuccessListener {
                     clearFields()

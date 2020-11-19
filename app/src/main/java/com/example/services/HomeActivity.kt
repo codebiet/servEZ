@@ -78,6 +78,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
         bottom_navigaion_view.setOnNavigationItemSelectedListener(mOnBottomNavigationListener)
 
         if(savedInstanceState == null) {
@@ -85,7 +86,7 @@ class HomeActivity : AppCompatActivity() {
             count1++
             count2 = 0
             count3 = 0
-            count4 = 0 
+            count4 = 0
         }
 
     }

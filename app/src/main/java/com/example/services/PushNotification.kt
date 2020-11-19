@@ -1,4 +1,6 @@
 package com.example.services
 
-class PushNotification {
-}
+data class PushNotification(
+    val data: NotificationData,
+    val to: String
+)
