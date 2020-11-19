@@ -69,6 +69,7 @@ class SignupActivity: AppCompatActivity() {
     }
     private fun gettoken(token:String) {
         FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        this.token = FirebaseService.token.toString()
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { it ->
             FirebaseService.token = it.token
             this.token = it.token

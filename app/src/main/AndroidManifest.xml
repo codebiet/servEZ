@@ -25,12 +25,16 @@
 
         <activity android:name=".messages.ChatActivity"
             android:windowSoftInputMode="adjustPan"></activity>
+
         <activity android:name=".CallWorkerActivity" />
+
         <activity android:name=".WorkSelectActivity" />
+
         <activity
             android:name=".ProviderRegisterActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".HomeActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +42,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SignupActivity"
             android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".Edit_profile"
             android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ContactUsActivity"/>
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

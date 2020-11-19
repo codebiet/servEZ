@@ -67,6 +67,12 @@ class Account_fragment : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
             startActivity(intent)
         }
+
+        contact_us_account.setOnClickListener {
+            val intent = Intent(activity,ContactUsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
+            startActivity(intent)
+        }
     }
 
     var selectedPhotoUri: Uri? = null
