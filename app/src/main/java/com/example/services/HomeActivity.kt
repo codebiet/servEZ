@@ -14,6 +14,7 @@ class HomeActivity : AppCompatActivity() {
     private var count1 : Int = 0
     private var count2 : Int = 0
     private var count3 : Int = 0
+    private var count4 : Int = 0
     private var doubleBackToExitPressedOnce = false
     private val mOnBottomNavigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -24,9 +25,10 @@ class HomeActivity : AppCompatActivity() {
                 count1 ++
                 count2 = 0
                 count3 = 0
+                count4  = 0
                 if(count1 == 1) {
-                    val account_ragment = Home_fragment.newInstance()
-                    openFragment(account_ragment)
+                    val home_ragment = Home_fragment.newInstance()
+                    openFragment(home_ragment)
                 }
                 return@OnNavigationItemSelectedListener true
             }
@@ -35,25 +37,33 @@ class HomeActivity : AppCompatActivity() {
                 count2++
                 count1 = 0
                 count3 = 0
+                count4 = 0
                 if(count2 == 1) {
-                    val account_ragment = Messaging_fragment.newInstance()
-                    openFragment(account_ragment)
+                    val messaging_fragment = Messaging_fragment.newInstance()
+                    openFragment(messaging_fragment)
                 }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.action_notification-> {
                 doubleBackToExitPressedOnce = false
-                 val account_ragment = Notification_fragment.newInstance()
-                 openFragment(account_ragment)
 
+                count3++
+                count1 = 0
+                count2 = 0
+                count4 = 0
+                if(count3 ==1) {
+                    val notification_fragment = Notification_fragment.newInstance()
+                    openFragment(notification_fragment)
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.action_account -> {
                 doubleBackToExitPressedOnce = false
-                count3 ++
+                count4 ++
                 count1 = 0
                 count2 = 0
-                if(count3 == 1) {
+                count3 = 0
+                if(count4 == 1) {
                     val account_ragment = Account_fragment.newInstance()
                     openFragment(account_ragment)
                 }
@@ -75,6 +85,7 @@ class HomeActivity : AppCompatActivity() {
             count1++
             count2 = 0
             count3 = 0
+            count4 = 0 
         }
 
     }
