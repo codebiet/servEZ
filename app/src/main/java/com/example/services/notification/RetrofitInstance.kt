@@ -1,6 +1,6 @@
-package com.example.services
+package com.example.services.notification
 
-import com.example.services.Constants.Companion.BASE_URL
+import com.example.services.shared.Constants.Companion.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

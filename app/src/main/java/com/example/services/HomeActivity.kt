@@ -6,7 +6,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import com.example.services.account.Account_fragment
+import com.example.services.messages.Messaging_fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -52,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
                 count2 = 0
                 count4 = 0
                 if(count3 ==1) {
-                    val notification_fragment = Notification_fragment.newInstance()
+                    val notification_fragment = Contract_fragment.newInstance()
                     openFragment(notification_fragment)
                 }
                 return@OnNavigationItemSelectedListener true

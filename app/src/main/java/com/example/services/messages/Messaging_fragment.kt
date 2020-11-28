@@ -1,4 +1,4 @@
-package com.example.services
+package com.example.services.messages
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.services.messages.ChatActivity
+import com.example.services.R
 import com.example.services.models.ChatMessage
 import com.example.services.models.User
 import com.example.services.shared.currentUser
@@ -18,7 +17,6 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_call_worker.*
 import kotlinx.android.synthetic.main.fragment_messaging.*
 import kotlinx.android.synthetic.main.latest_msg_tile.view.*
 
@@ -46,21 +44,18 @@ class Messaging_fragment : Fragment() {
     private fun refreshRecyclerView(){
         adaptor.clear()
         latestMsgMap.values.forEach{
-            Log.d("Logs","${it.text}")
             adaptor.add(LatestMsg(it))
         }
         adaptor.notifyDataSetChanged()
     }
 
     private  fun loadLatestMsg(){
-        Log.d("Logs","Latest Msg Called")
         val fromid = currentUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromid")
         ref.keepSynced(true)
         ref.addChildEventListener(object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
-                Log.d("Logs","From fb ${chatMessage?.text}")
                 latestMsgMap[snapshot.key!!]= chatMessage!!
                 refreshRecyclerView()
             }

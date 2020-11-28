@@ -1,18 +1,13 @@
 package com.example.services
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.services.models.User
-import com.example.services.shared.GetCurrentUser
-import com.example.services.shared.currentUser
+import com.example.services.signInRegister.SignInActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class Home_fragment() : Fragment() {
@@ -71,7 +66,7 @@ class Home_fragment() : Fragment() {
         var uid = FirebaseAuth.getInstance().uid
         if (uid==null){
             val s: Context? = getContext()
-            val intent = Intent(s, MainActivity::class.java )
+            val intent = Intent(s, SignInActivity::class.java )
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }

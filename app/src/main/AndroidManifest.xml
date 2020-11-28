@@ -23,8 +23,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".messages.ChatActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".messages.ChatActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".CallWorkerActivity" />
 
@@ -35,7 +36,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".HomeActivity" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".signInRegister.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,14 +45,14 @@
         </activity>
 
         <activity
-            android:name=".SignupActivity"
+            android:name=".signInRegister.SignupActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".Edit_profile"
+        <activity android:name=".account.Edit_profile"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ContactUsActivity"/>
+        <activity android:name=".account.ContactUsActivity"/>
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".notification.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
