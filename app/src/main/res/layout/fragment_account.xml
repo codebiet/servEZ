@@ -16,7 +16,6 @@
         android:text="TextView"
         android:textSize="20dp"
         android:textStyle="bold"
-
         app:layout_constraintEnd_toEndOf="@+id/upload_img_btn"
         app:layout_constraintStart_toStartOf="@+id/upload_img_btn"
         app:layout_constraintTop_toBottomOf="@+id/upload_img_btn" />
@@ -46,10 +45,11 @@
         app:layout_constraintStart_toStartOf="@+id/upload_img_btn" />
 
     <ScrollView
-        android:layout_width="410dp"
-        android:layout_height="419dp"
-        android:layout_marginTop="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_account">
@@ -130,8 +130,8 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/layout_bg"
                 android:drawableLeft="@drawable/ic_baseline_call_24"
-                android:drawableTint="#EB783f"
                 android:drawablePadding="10dp"
+                android:drawableTint="#EB783f"
                 android:letterSpacing="0.15"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"

@@ -29,15 +29,12 @@ import kotlinx.android.synthetic.main.worker_tile.view.*
 
 class WorkSelectActivity : AppCompatActivity() {
     val activeAdapter = GroupAdapter<ViewHolder>()
-    val inactiveAdapter = GroupAdapter<ViewHolder>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_select)
 
         val activeWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.active_worker_view)
-        val inactiveWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.inactive_worker_view)
         activeWorkerView.adapter = activeAdapter
-        inactiveWorkerView.adapter = inactiveAdapter
 
         loadWorkers()
 
@@ -48,15 +45,6 @@ class WorkSelectActivity : AppCompatActivity() {
             activeWorkerView.visibility = View.VISIBLE;
             empty_view.visibility = View.GONE;
         }
-
-        if(inactiveAdapter.itemCount==0){
-            inactiveWorkerView.visibility = View.GONE;
-            empty_view_bottom.visibility = View.VISIBLE;
-        }else{
-            inactiveWorkerView.visibility = View.VISIBLE;
-            empty_view_bottom.visibility = View.GONE;
-        }
-
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -92,17 +80,12 @@ class WorkSelectActivity : AppCompatActivity() {
     private fun loadWorkerData(worker: Worker){
 
         val activeWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.active_worker_view)
-        val inactiveWorkerView:androidx.recyclerview.widget.RecyclerView = findViewById(R.id.inactive_worker_view)
         val ref = FirebaseDatabase.getInstance().getReference("users/${worker.workerUID}")
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java)
                 if(user!=null){
-                    if(worker.available=="true")
-                        activeAdapter.add(WorkerTile(worker, user))
-                    else
-                        inactiveAdapter.add(WorkerTile(worker, user))
-
+                    activeAdapter.add(WorkerTile(worker, user))
                     if(activeAdapter.itemCount==0){
                         activeWorkerView.visibility = View.GONE;
                         empty_view.visibility = View.VISIBLE;
@@ -110,15 +93,6 @@ class WorkSelectActivity : AppCompatActivity() {
                         activeWorkerView.visibility = View.VISIBLE;
                         empty_view.visibility = View.GONE;
                     }
-
-                    if(inactiveAdapter.itemCount==0){
-                        inactiveWorkerView.visibility = View.GONE;
-                        empty_view_bottom.visibility = View.VISIBLE;
-                    }else{
-                        inactiveWorkerView.visibility = View.VISIBLE;
-                        empty_view_bottom.visibility = View.GONE;
-                    }
-
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -154,7 +128,7 @@ class WorkSelectActivity : AppCompatActivity() {
                 viewHolder.itemView.worker_rating.setTextColor(Color.parseColor("#47a326"))
             }
 
-            if(user?.profileImgURL=="NULL"||user?.profileImgURL==null){
+            if(user.profileImgURL =="NULL"|| user.profileImgURL == null){
                 var name = worker.serviceType
                 val img = viewHolder.itemView.findViewById<ImageView>(R.id.worker_profile_img)
                 if(name=="Mechanic"){

@@ -49,6 +49,7 @@ class Notification_fragment : Fragment() {
                         val invitation = snapshot.getValue(Invitation::class.java)
                         adaptor.add(LatestNotice(invitation!!,ref2,snapshot.key.toString()))
                        // Log.d("Logs","$ref ---> ${snapshot.key}")
+                        notification_recyclerview.scrollToPosition(adaptor.itemCount - 1)
                     }
                     override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
 
