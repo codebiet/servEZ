@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.services.models.ChatMessage
 import com.example.services.models.Invitation
 import com.example.services.shared.currentUser
@@ -34,11 +36,16 @@ class Notification_fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val layoutManager= LinearLayoutManager(context);
+        layoutManager.orientation = LinearLayoutManager.VERTICAL;
+        notification_recyclerview.layoutManager = layoutManager;
         notification_recyclerview.adapter = adaptor
-        loadNotifications()
+
+        loadNotifications(notification_recyclerview)
     }
 
-    private fun loadNotifications(){
+    private fun loadNotifications(notification_recyclerview:RecyclerView){
         val ref = FirebaseDatabase.getInstance().getReference("/invitations/${currentUser!!.uid}")
         ref.keepSynced(true)
         ref.addChildEventListener(object : ChildEventListener {
@@ -49,7 +56,9 @@ class Notification_fragment : Fragment() {
                         val invitation = snapshot.getValue(Invitation::class.java)
                         adaptor.add(LatestNotice(invitation!!,ref2,snapshot.key.toString()))
                        // Log.d("Logs","$ref ---> ${snapshot.key}")
-                        notification_recyclerview.scrollToPosition(adaptor.itemCount - 1)
+                        if(adaptor.itemCount>1){
+                            notification_recyclerview.scrollToPosition(adaptor.itemCount - 1)
+                        }
                     }
                     override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
 
@@ -116,6 +125,7 @@ class Notification_fragment : Fragment() {
                 ref.setValue(temp)
                         .addOnSuccessListener {
                             Toast.makeText(viewHolder.itemView.context, "Rejected Invitation",Toast.LENGTH_SHORT).show()
+                            updateUI(invitation.status,viewHolder)
                         }
 
             }
@@ -127,8 +137,23 @@ class Notification_fragment : Fragment() {
                             ref.setValue(temp)
                                     .addOnSuccessListener {
                                         Toast.makeText(viewHolder.itemView.context, "Accepted Invitation",Toast.LENGTH_SHORT).show()
+                                        updateUI(invitation.status,viewHolder)
                                     }
                         }
+            }
+        }
+
+        fun updateUI(status:String,viewHolder: ViewHolder){
+            viewHolder.itemView.notif_reject_btn.isEnabled = false
+            viewHolder.itemView.notif_reject_btn.visibility = View.GONE
+            viewHolder.itemView.notif_btn.setBackgroundResource(android.R.drawable.btn_default)
+            viewHolder.itemView.notif_btn.isEnabled = false
+            viewHolder.itemView.notif_btn.text = status
+
+            when(status){
+                "Pending"->viewHolder.itemView.setBackgroundColor(Color.parseColor("#dbefff"))
+                "Accepted"->viewHolder.itemView.setBackgroundColor(Color.parseColor("#dbffdb"))
+                "Rejected"->viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffdbdb"))
             }
         }
 

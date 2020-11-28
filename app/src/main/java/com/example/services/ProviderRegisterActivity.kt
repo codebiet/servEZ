@@ -67,7 +67,7 @@ class ProviderRegisterActivity : AppCompatActivity() {
 
         Log.d("Logs","Provider message ${currentUser!!.providesService}")
 
-        if(currentUser!!.providesService=="true"){
+        if(currentUser!!.providesService!="false"){
             Toast.makeText(this,"you are already Registered",Toast.LENGTH_SHORT).show()
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
