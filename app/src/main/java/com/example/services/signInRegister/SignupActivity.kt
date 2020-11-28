@@ -1,4 +1,4 @@
-package com.example.services
+package com.example.services.signInRegister
 
 
 import android.content.Context
@@ -10,6 +10,8 @@ import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.services.FirebaseService
+import com.example.services.R
 import com.example.services.models.User
 import com.example.services.shared.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
@@ -40,7 +42,7 @@ class SignupActivity: AppCompatActivity() {
 
         val signInText:TextView = findViewById(R.id.signin_navigator)
         signInText.setOnClickListener{
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, SignInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }

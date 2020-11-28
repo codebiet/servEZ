@@ -1,10 +1,7 @@
 package com.example.services
 
-import android.app.Notification
 import android.graphics.Color
-import android.graphics.Color.green
 import android.os.Bundle
-import android.service.autofill.VisibilitySetterAction
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +10,19 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.services.models.ChatMessage
 import com.example.services.models.Invitation
 import com.example.services.shared.currentUser
 import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_call_worker.*
 import kotlinx.android.synthetic.main.fragment_notification.*
 import kotlinx.android.synthetic.main.notification_tile_client.view.*
 
 
-class Notification_fragment : Fragment() {
+class Contract_fragment : Fragment() {
     companion object {
-        fun newInstance() : Notification_fragment = Notification_fragment()
+        fun newInstance() : Contract_fragment = Contract_fragment()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_notification, container, false)
@@ -55,7 +50,6 @@ class Notification_fragment : Fragment() {
                     override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                         val invitation = snapshot.getValue(Invitation::class.java)
                         adaptor.add(LatestNotice(invitation!!,ref2,snapshot.key.toString()))
-                       // Log.d("Logs","$ref ---> ${snapshot.key}")
                         if(adaptor.itemCount>1){
                             notification_recyclerview.scrollToPosition(adaptor.itemCount - 1)
                         }
@@ -143,7 +137,7 @@ class Notification_fragment : Fragment() {
             }
         }
 
-        fun updateUI(status:String,viewHolder: ViewHolder){
+        private fun updateUI(status:String, viewHolder: ViewHolder){
             viewHolder.itemView.notif_reject_btn.isEnabled = false
             viewHolder.itemView.notif_reject_btn.visibility = View.GONE
             viewHolder.itemView.notif_btn.setBackgroundResource(android.R.drawable.btn_default)

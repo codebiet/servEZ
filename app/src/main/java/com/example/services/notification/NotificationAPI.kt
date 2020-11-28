@@ -1,7 +1,7 @@
-package com.example.services
+package com.example.services.notification
 
-import com.example.services.Constants.Companion.CONTENT_TYPE
-import com.example.services.Constants.Companion.SERVER_KEY
+import com.example.services.shared.Constants.Companion.CONTENT_TYPE
+import com.example.services.shared.Constants.Companion.SERVER_KEY
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body

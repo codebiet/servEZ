@@ -1,15 +1,12 @@
-package com.example.services
+package com.example.services.account
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.services.models.User
+import com.example.services.R
 import com.example.services.shared.currentUser
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.signup.view.*
-import kotlin.jvm.internal.MagicApiIntrinsics
 
 class Edit_profile:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
