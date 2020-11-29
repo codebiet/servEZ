@@ -75,7 +75,7 @@ class ProviderRegisterActivity : AppCompatActivity() {
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/workers/$serviceType/$uid")
-        val worker = Worker(uid.toString(),serviceType,experience,description.toString(),"false",0,0,50)
+        val worker = Worker(uid.toString(),serviceType,experience,description.toString(),"false",0,0,0)
         ref.setValue(worker)
                 .addOnSuccessListener {
                     Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()

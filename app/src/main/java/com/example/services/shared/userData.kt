@@ -3,7 +3,6 @@ package com.example.services.shared
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.example.services.HomeActivity
 import com.example.services.models.User
 import com.google.firebase.auth.FirebaseAuth
