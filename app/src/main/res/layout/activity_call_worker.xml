@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.388" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/worker_profile_pic"
+        android:id="@+id/user_pic"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/builder"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.089" />
 
     <TextView
-        android:id="@+id/worker_name_call"
+        android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -45,8 +45,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.178"
-        app:layout_constraintStart_toEndOf="@+id/worker_profile_pic"
-        app:layout_constraintTop_toTopOf="@+id/worker_profile_pic" />
+        app:layout_constraintStart_toEndOf="@+id/user_pic"
+        app:layout_constraintTop_toTopOf="@+id/user_pic" />
 
     <TextView
         android:id="@+id/worker_experience_call"
@@ -56,8 +56,8 @@
         android:text="Experience"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/worker_name_call"
-        app:layout_constraintTop_toBottomOf="@+id/worker_name_call" />
+        app:layout_constraintStart_toStartOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
     <TextView
         android:id="@+id/worker_description_call"
@@ -71,7 +71,7 @@
         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/worker_profile_pic" />
+        app:layout_constraintTop_toBottomOf="@+id/user_pic" />
 
     <TextView
         android:id="@+id/worker_jobsdone_call"
@@ -120,11 +120,11 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="12dp"
         android:src="@drawable/ic_baseline_call_24"
-        app:layout_constraintStart_toEndOf="@+id/worker_city_call"
+        app:layout_constraintStart_toEndOf="@+id/user_city"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <ImageView
-        android:id="@+id/message_icon"
+        android:id="@+id/user_message"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="28dp"
@@ -147,7 +147,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/worker_city_call"
+        android:id="@+id/user_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
