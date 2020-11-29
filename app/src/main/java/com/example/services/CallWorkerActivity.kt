@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_call_worker.*
 import java.util.*
+import com.example.services.MapsActivity
 
 class CallWorkerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,12 @@ class CallWorkerActivity : AppCompatActivity() {
         }else{
             Picasso.get().load(user.profileImgURL).into(user_pic)
         }
+       user_city.setOnClickListener {
 
+           var intent=Intent(this,MapsActivity::class.java)
+           startActivity(intent)
+
+       }
         worker_phone_call.setOnClickListener{
            makeCall(user.phone)
         }

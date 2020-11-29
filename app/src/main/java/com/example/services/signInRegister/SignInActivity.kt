@@ -1,7 +1,12 @@
 package com.example.services.signInRegister
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Typeface.BOLD
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -15,6 +20,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.services.R
 import com.example.services.shared.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
@@ -50,8 +56,61 @@ class SignInActivity : AppCompatActivity() {
         string.setSpan(click, 23, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView6.text = string;
         textView6.movementMethod = LinkMovementMethod.getInstance();
+        checkPermission()
+    }
+    var Accesslocation=0
+    fun checkPermission(){
+        if(Build.VERSION.SDK_INT>=23){
+            if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+                requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),Accesslocation)
+                return
+            }
+        }
+        getuserlocation()
+
+
+    }
+    fun getuserlocation(){
+        Toast.makeText(this,"PermissionGranted", Toast.LENGTH_LONG).show()
+
+
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            Accesslocation->{
+                if (grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                    getuserlocation()
+                }
+                else{
+                    Toast.makeText(this,"User Location Access On", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
     private fun performLogin(){
         val email = findViewById<EditText>(R.id.email_login).text
         val password = findViewById<EditText>(R.id.password_login).text
@@ -70,6 +129,5 @@ class SignInActivity : AppCompatActivity() {
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
                 }
     }
-
 }
 
