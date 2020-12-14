@@ -1,4 +1,4 @@
-package com.example.services
+package com.example.services.account
 
 import android.app.Activity
 import android.content.Intent
@@ -10,23 +10,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.services.signInRegister.SignInActivity
+import com.example.services.ProviderRegisterActivity
+import com.example.services.R
 import com.example.services.shared.GetCurrentUser
-import com.example.services.shared.LoadingDialog
 import com.example.services.shared.currentUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_call_worker.view.*
-import kotlinx.android.synthetic.main.activity_work_select.*
 import kotlinx.android.synthetic.main.fragment_account.*
-import java.util.*
 
 class Account_fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -57,19 +52,19 @@ class Account_fragment : Fragment() {
 
         log_out_account.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
-            val intent =  Intent(activity, MainActivity::class.java )
+            val intent =  Intent(activity, SignInActivity::class.java )
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
 
         provide_services_account.setOnClickListener {
-            val intent = Intent(activity,ProviderRegisterActivity::class.java)
+            val intent = Intent(activity, ProviderRegisterActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
             startActivity(intent)
         }
 
         contact_us_account.setOnClickListener {
-            val intent = Intent(activity,ContactUsActivity::class.java)
+            val intent = Intent(activity, ContactUsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT.or(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)
             startActivity(intent)
         }

@@ -67,7 +67,7 @@ class ProviderRegisterActivity : AppCompatActivity() {
 
         Log.d("Logs","Provider message ${currentUser!!.providesService}")
 
-        if(currentUser!!.providesService=="true"){
+        if(currentUser!!.providesService!="false"){
             Toast.makeText(this,"you are already Registered",Toast.LENGTH_SHORT).show()
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
@@ -75,7 +75,7 @@ class ProviderRegisterActivity : AppCompatActivity() {
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/workers/$serviceType/$uid")
-        val worker = Worker(uid.toString(),serviceType,experience,description.toString(),"false",0,0,50)
+        val worker = Worker(uid.toString(),serviceType,experience,description.toString(),"false",0,0,0)
         ref.setValue(worker)
                 .addOnSuccessListener {
                     Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()

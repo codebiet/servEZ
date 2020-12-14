@@ -1,9 +1,6 @@
-package com.example.services
+package com.example.services.notification
 
-import android.app.PendingIntent
-import android.content.Intent
 import android.util.Log
-import android.widget.Button
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.services.NotificationData
-import com.example.services.PushNotification
+import com.example.services.notification.NotificationData
+import com.example.services.notification.PushNotification
 import com.example.services.R
-import com.example.services.RetrofitInstance
+import com.example.services.notification.RetrofitInstance
 
 import com.example.services.models.ChatMessage
 import com.example.services.models.User

@@ -1,4 +1,4 @@
-package com.example.services
+package com.example.services.notification
 
 data class NotificationData(
     val title: String,

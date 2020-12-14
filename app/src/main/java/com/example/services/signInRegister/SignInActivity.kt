@@ -1,4 +1,4 @@
-package com.example.services
+package com.example.services.signInRegister
 
 import android.content.Intent
 import android.graphics.Typeface.BOLD
@@ -15,18 +15,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.services.R
 import com.example.services.shared.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
-
-class MainActivity : AppCompatActivity() {
-
-
-
-
-
-
+class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,12 +46,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         string.setSpan(StyleSpan(BOLD), 23, 30,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         string.setSpan(click, 23, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView6.text = string;
-        textView6.setMovementMethod(LinkMovementMethod.getInstance()) ;
-
+        textView6.movementMethod = LinkMovementMethod.getInstance();
     }
 
     private fun performLogin(){

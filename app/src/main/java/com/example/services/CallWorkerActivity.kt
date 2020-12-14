@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import com.example.services.messages.ChatActivity
 import com.example.services.models.Invitation
@@ -14,10 +12,8 @@ import com.example.services.models.User
 import com.example.services.models.Worker
 import com.example.services.shared.currentUser
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_call_worker.*
-import kotlinx.android.synthetic.main.worker_tile.view.*
 import java.util.*
 
 class CallWorkerActivity : AppCompatActivity() {
@@ -29,7 +25,7 @@ class CallWorkerActivity : AppCompatActivity() {
         val worker = intent.getParcelableExtra<Worker>("WorkerKey")!!
         if(user.profileImgURL=="NULL"||user.profileImgURL==null){
         }else{
-            Picasso.get().load(user.profileImgURL).into(worker_profile_pic)
+            Picasso.get().load(user.profileImgURL).into(user_pic)
         }
 
         worker_phone_call.setOnClickListener{
@@ -40,7 +36,7 @@ class CallWorkerActivity : AppCompatActivity() {
         }
         updateUI()
 
-        message_icon.setOnClickListener{
+        user_message.setOnClickListener{
             val intent = Intent(this,ChatActivity::class.java)
             intent.putExtra("MY_ID", currentUser!!.uid)
             intent.putExtra("RCV_ID", user.uid)
@@ -58,13 +54,13 @@ class CallWorkerActivity : AppCompatActivity() {
         val user = intent.getParcelableExtra<User>("UserKey")
         val worker = intent.getParcelableExtra<Worker>("WorkerKey")
 
-        worker_name_call.text = user?.firstName+" "+user?.lastName
+        user_name.text = user?.firstName+" "+user?.lastName
         worker_experience_call.text = worker?.experience
         worker_description_call.text = worker?.description
         worker_rating_call.text = worker?.rating.toString()+"%"
         worker_jobsdone_call.text = "Jobs Done: "+ worker?.jobDoneCount.toString()
         worker_phone_call.text = user?.phone
-        worker_city_call.text = user?.city
+        user_city.text = user?.city
 
         when(worker?.experience){
             "Beginner"->worker_experience_call.setTextColor(Color.parseColor("#697778"))
